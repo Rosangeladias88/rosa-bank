@@ -1,3 +1,4 @@
+import 'dados_transferencia.dart';
 import 'package:flutter/material.dart';
 
 class TransferenciaPage extends StatefulWidget {
@@ -16,15 +17,20 @@ class _TransferenciaPageState extends State<TransferenciaPage> {
 
   void transferir() {
     if (_formTransferencia.currentState!.validate()) {
-      Navigator.pushNamed(
-        context,
-        '/comprovante',
-        arguments: {
-          'nome': nomeController.text,
-          'pix': pixController.text,
-          'valor': valorController.text,
-        },
-      );
+    final transferencia = {
+  'nome': nomeController.text,
+  'pix': pixController.text,
+  'valor': valorController.text,
+  'data': DateTime.now(),
+};
+
+historicoTransferencias.add(transferencia);
+
+Navigator.pushNamed(
+  context,
+  '/comprovante',
+  arguments: transferencia,
+);
     }
   }
 
