@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dados_saldo.dart';
 
 class PrincipalPage extends StatelessWidget {
   const PrincipalPage({super.key});
@@ -34,17 +35,17 @@ class PrincipalPage extends StatelessWidget {
                 color: Colors.pinkAccent,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Saldo disponível',
                     style: TextStyle(color: Colors.white70),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'R\$ 2.500,00',
-                    style: TextStyle(
+                    'R\$ ${saldoDisponivel.toStringAsFixed(2)}',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'dados_saldo.dart';
 import 'dados_transferencia.dart';
 import 'package:flutter/material.dart';
 
@@ -15,24 +16,39 @@ class _TransferenciaPageState extends State<TransferenciaPage> {
   final pixController = TextEditingController();
   final valorController = TextEditingController();
 
-  void transferir() {
-    if (_formTransferencia.currentState!.validate()) {
-    final transferencia = {
-  'nome': nomeController.text,
-  'pix': pixController.text,
-  'valor': valorController.text,
-  'data': DateTime.now(),
-};
+ void transferir() {
+  if (_formTransferencia.currentState!.validate()) {
+    final valorTransferencia = double.parse(valorController.text);
 
-historicoTransferencias.add(transferencia);
-
-Navigator.pushNamed(
-  context,
-  '/comprovante',
-  arguments: transferencia,
-);
+    if (valorTransferencia > saldoDisponivel) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Saldo insuficiente!'),
+        ),
+      );
+      return;
     }
+
+    saldoDisponivel = saldoDisponivel - valorTransferencia;
+
+    final transferencia = {
+      'nome': nomeController.text,
+      'pix': pixController.text,
+      'valor': valorController.text,
+      'data': DateTime.now(),
+    };
+
+    historicoTransferencias.add(transferencia);
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/comprovante',
+      (route) => false,
+      arguments: transferencia,
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
