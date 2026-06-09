@@ -13,9 +13,10 @@ class PrincipalPage extends StatelessWidget {
         backgroundColor: Colors.pinkAccent,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
+     body: SingleChildScrollView(
+  child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
@@ -28,33 +29,92 @@ class PrincipalPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.pinkAccent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Saldo disponível',
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'R\$ ${saldoDisponivel.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+           Container(
+  width: double.infinity,
+  padding: const EdgeInsets.all(24),
+  decoration: BoxDecoration(
+    gradient: const LinearGradient(
+      colors: [
+        Color(0xFFE91E63),
+        Color(0xFF9C27B0),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.3),
+        blurRadius: 10,
+        offset: const Offset(0, 5),
+      ),
+    ],
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const [
+          Text(
+            'ROSA BANK PREMIUM',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
             ),
+          ),
+          Icon(
+            Icons.credit_card,
+            color: Colors.white,
+          ),
+        ],
+      ),
 
+      const SizedBox(height: 30),
+
+      const Text(
+        'Saldo disponível',
+        style: TextStyle(
+          color: Colors.white70,
+          fontSize: 14,
+        ),
+      ),
+
+      const SizedBox(height: 8),
+
+      Text(
+        'R\$ ${saldoDisponivel.toStringAsFixed(2)}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      const SizedBox(height: 25),
+
+      const Text(
+        'Rosângela Dias',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      ),
+
+      const SizedBox(height: 8),
+
+      const Text(
+        '•••• 4587',
+        style: TextStyle(
+          color: Colors.white70,
+          letterSpacing: 3,
+          fontSize: 16,
+        ),
+      ),
+    ],
+  ),
+),
             const SizedBox(height: 30),
 
             botaoMenu(
@@ -78,10 +138,11 @@ class PrincipalPage extends StatelessWidget {
               rota: '/historico',
             ),
           ],
-        ),
+        )),
       ),
     );
   }
+  
 
   Widget botaoMenu(
     BuildContext context, {
