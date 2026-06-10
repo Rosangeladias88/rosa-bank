@@ -30,6 +30,7 @@ class _TransferenciaPageState extends State<TransferenciaPage> {
     }
 
     saldoDisponivel = saldoDisponivel - valorTransferencia;
+    salvarSaldo();
 
     final transferencia = {
       'nome': nomeController.text,

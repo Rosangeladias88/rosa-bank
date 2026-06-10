@@ -5,8 +5,14 @@ import 'cotacao.dart';
 import 'transferencia.dart';
 import 'historico.dart';
 import 'comprovante.dart';
+import 'dados_saldo.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await carregarSaldo();
+
   runApp(const RosaBankApp());
 }
 
