@@ -29,7 +29,11 @@ class _PrincipalPageState extends State<PrincipalPage> {
             children: [
               const Text(
                 'Bem-vinda ao Rosa Bank',
-                style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 20),
 
@@ -38,17 +42,54 @@ class _PrincipalPageState extends State<PrincipalPage> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFE91E63), Color(0xFF9C27B0)],
+                    colors: [
+                      Color(0xFFE91E63),
+                      Color(0xFF9C27B0),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.35),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'ROSA BANK PREMIUM',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                        Icon(
+                          Icons.credit_card,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 24),
+
                     const Text(
                       'Saldo disponível',
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
                     ),
+
                     const SizedBox(height: 8),
 
                     Row(
@@ -71,17 +112,57 @@ class _PrincipalPageState extends State<PrincipalPage> {
                             });
                           },
                           icon: Icon(
-                            mostrarSaldo ? Icons.visibility : Icons.visibility_off,
+                            mostrarSaldo
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Colors.white,
                           ),
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 22),
+
+                    const Text(
+                      'Rosângela Dias',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
                     const Text(
                       'Agência 0001  •  Conta 12345-7',
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '•••• 4587',
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 3,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          'Validade 12/30',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -92,9 +173,24 @@ class _PrincipalPageState extends State<PrincipalPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  atalhoMenu(context, titulo: 'Cotação', icone: Icons.currency_exchange, rota: '/cotacao'),
-                  atalhoMenu(context, titulo: 'Pix', icone: Icons.pix, rota: '/transferencia'),
-                  atalhoMenu(context, titulo: 'Histórico', icone: Icons.history, rota: '/historico'),
+                  atalhoMenu(
+                    context,
+                    titulo: 'Cotação',
+                    icone: Icons.currency_exchange,
+                    rota: '/cotacao',
+                  ),
+                  atalhoMenu(
+                    context,
+                    titulo: 'Pix',
+                    icone: Icons.pix,
+                    rota: '/transferencia',
+                  ),
+                  atalhoMenu(
+                    context,
+                    titulo: 'Histórico',
+                    icone: Icons.history,
+                    rota: '/historico',
+                  ),
                 ],
               ),
 
@@ -102,8 +198,13 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
               const Text(
                 'Últimas movimentações',
-                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+
               const SizedBox(height: 15),
 
               Container(
@@ -118,9 +219,15 @@ class _PrincipalPageState extends State<PrincipalPage> {
                         style: TextStyle(color: Colors.white70),
                       )
                     : Column(
-                        children: historicoTransferencias.reversed.take(3).map((transferencia) {
+                        children: historicoTransferencias
+                            .reversed
+                            .take(3)
+                            .map((transferencia) {
                           return ListTile(
-                            leading: const Icon(Icons.arrow_upward, color: Colors.red),
+                            leading: const Icon(
+                              Icons.arrow_upward,
+                              color: Colors.red,
+                            ),
                             title: Text(
                               'Pix para ${transferencia['nome']}',
                               style: const TextStyle(color: Colors.white),
@@ -153,10 +260,17 @@ class _PrincipalPageState extends State<PrincipalPage> {
           CircleAvatar(
             radius: 35,
             backgroundColor: Colors.white24,
-            child: Icon(icone, color: Colors.white, size: 30),
+            child: Icon(
+              icone,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
           const SizedBox(height: 8),
-          Text(titulo, style: const TextStyle(color: Colors.white)),
+          Text(
+            titulo,
+            style: const TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );
