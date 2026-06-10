@@ -6,12 +6,14 @@ import 'transferencia.dart';
 import 'historico.dart';
 import 'comprovante.dart';
 import 'dados_saldo.dart';
+import 'dados_transferencia.dart';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await carregarSaldo();
+  await carregarHistorico();
 
   runApp(const RosaBankApp());
 }

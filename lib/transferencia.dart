@@ -40,6 +40,7 @@ class _TransferenciaPageState extends State<TransferenciaPage> {
     };
 
     historicoTransferencias.add(transferencia);
+    salvarHistorico();
 
     Navigator.pushNamedAndRemoveUntil(
       context,
