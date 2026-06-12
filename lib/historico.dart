@@ -55,6 +55,8 @@ class HistoricoPage extends StatelessWidget {
                               ),
                             ),
                           ),
+
+ 
                           isCurved: true,
                           barWidth: 4,
                           dotData: FlDotData(show: true),
@@ -63,6 +65,47 @@ class HistoricoPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          'Pix: ${historicoTransferencias.length}',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+
+      Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          'Total: R\$ ${historicoTransferencias.fold(
+            0.0,
+            (soma, item) =>
+                soma + double.parse(item['valor'].toString()),
+          ).toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
+const SizedBox(height: 16),
 
                 Expanded(
                   child: ListView.builder(
