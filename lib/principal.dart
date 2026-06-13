@@ -10,7 +10,7 @@ class PrincipalPage extends StatefulWidget {
 }
 
 class _PrincipalPageState extends State<PrincipalPage> {
-  bool mostrarSaldo = true;
+  bool mostrarSaldo = false;
 
   @override
   Widget build(BuildContext context) {
