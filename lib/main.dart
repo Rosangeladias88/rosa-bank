@@ -7,6 +7,7 @@ import 'historico.dart';
 import 'comprovante.dart';
 import 'dados_saldo.dart';
 import 'dados_transferencia.dart';
+import 'tema.dart';
 
 
 Future<void> main() async {
@@ -23,9 +24,15 @@ class RosaBankApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+  valueListenable: temaAtual,
+  builder: (context, ThemeMode modo, child) {
     return MaterialApp(
       title: 'Rosa Bank',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: modo,
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginPage(),
@@ -36,5 +43,7 @@ class RosaBankApp extends StatelessWidget {
         '/comprovante': (context) => const ComprovantePage(),
       },
     );
+  },
+);
   }
 }

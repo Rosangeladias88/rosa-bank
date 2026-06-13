@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dados_saldo.dart';
 import 'dados_transferencia.dart';
+import 'tema.dart';
 
 class PrincipalPage extends StatefulWidget {
   const PrincipalPage({super.key});
@@ -14,35 +15,50 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
   @override
   Widget build(BuildContext context) {
+    final modoEscuro = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF101827),
+      backgroundColor: modoEscuro ? const Color(0xFF101827) : Colors.grey[100],
       appBar: AppBar(
-  title: const Text('Rosa Bank'),
-  backgroundColor: Colors.pinkAccent,
-  centerTitle: true,
-  actions: [
-    IconButton(
-      icon: const Icon(Icons.logout),
-      onPressed: () {
-        Navigator.pushReplacementNamed(context, '/');
-      },
-    ),
-  ],
-),
+        title: const Text('Rosa Bank'),
+        backgroundColor: Colors.pinkAccent,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(
+              temaAtual.value == ThemeMode.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            onPressed: () {
+              temaAtual.value = temaAtual.value == ThemeMode.dark
+                  ? ThemeMode.light
+                  : ThemeMode.dark;
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Bem-vinda ao Rosa Bank',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: modoEscuro ? Colors.white : Colors.black,
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               const SizedBox(height: 20),
 
               Container(
@@ -204,10 +220,10 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
               const SizedBox(height: 30),
 
-              const Text(
+              Text(
                 'Últimas movimentações',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: modoEscuro ? Colors.white : Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -218,13 +234,15 @@ class _PrincipalPageState extends State<PrincipalPage> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white10,
+                  color: modoEscuro ? Colors.white10 : Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: historicoTransferencias.isEmpty
-                    ? const Text(
+                    ? Text(
                         'Nenhuma movimentação ainda',
-                        style: TextStyle(color: Colors.white70),
+                        style: TextStyle(
+                          color: modoEscuro ? Colors.white70 : Colors.black54,
+                        ),
                       )
                     : Column(
                         children: historicoTransferencias
@@ -238,11 +256,19 @@ class _PrincipalPageState extends State<PrincipalPage> {
                             ),
                             title: Text(
                               'Pix para ${transferencia['nome']}',
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                color: modoEscuro
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                             subtitle: Text(
                               'R\$ ${transferencia['valor']}',
-                              style: const TextStyle(color: Colors.white70),
+                              style: TextStyle(
+                                color: modoEscuro
+                                    ? Colors.white70
+                                    : Colors.black54,
+                              ),
                             ),
                           );
                         }).toList(),
@@ -261,23 +287,28 @@ class _PrincipalPageState extends State<PrincipalPage> {
     required IconData icone,
     required String rota,
   }) {
+    final modoEscuro = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, rota),
       child: Column(
         children: [
           CircleAvatar(
             radius: 35,
-            backgroundColor: Colors.white24,
+            backgroundColor:
+                modoEscuro ? Colors.white24 : Colors.pink.shade100,
             child: Icon(
               icone,
-              color: Colors.white,
+              color: modoEscuro ? Colors.white : Colors.pinkAccent,
               size: 30,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             titulo,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: modoEscuro ? Colors.white : Colors.black,
+            ),
           ),
         ],
       ),
