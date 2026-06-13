@@ -13,6 +13,8 @@ class _LoginPageState extends State<LoginPage> {
   String email = '';
   String senha = '';
 
+  bool mostrarSenha = false;
+
   void entrar() {
     if (_formLogin.currentState!.validate()) {
       Navigator.pushReplacementNamed(context, '/principal');
@@ -73,30 +75,48 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 16),
 
-                TextFormField(
-                  obscureText: true,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: const InputDecoration(
-                    labelText: 'Senha',
-                    labelStyle: TextStyle(color: Colors.white70),
-                    prefixIcon: Icon(Icons.lock, color: Colors.white70),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.pinkAccent),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Informe sua senha';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    senha = value;
-                  },
-                ),
+               TextFormField(
+  obscureText: !mostrarSenha,
+  style: const TextStyle(color: Colors.white),
+  decoration: InputDecoration(
+    labelText: 'Senha',
+    labelStyle: const TextStyle(color: Colors.white70),
+    prefixIcon: const Icon(
+      Icons.lock,
+      color: Colors.white70,
+    ),
+
+    suffixIcon: IconButton(
+      icon: Icon(
+        mostrarSenha
+            ? Icons.visibility
+            : Icons.visibility_off,
+        color: Colors.white70,
+      ),
+      onPressed: () {
+        setState(() {
+          mostrarSenha = !mostrarSenha;
+        });
+      },
+    ),
+
+    enabledBorder: const OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white38),
+    ),
+    focusedBorder: const OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.pinkAccent),
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Informe sua senha';
+    }
+    return null;
+  },
+  onChanged: (value) {
+    senha = value;
+  },
+),
 
                 const SizedBox(height: 24),
 
