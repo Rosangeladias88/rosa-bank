@@ -137,14 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Funcionalidade de cadastro em desenvolvimento.',
-                            ),
-                          ),
-                        );
-                      },
+  Navigator.pushNamed(context, '/cadastro');
+},
                       child: const Text(
                         'Cadastre-se',
                         style: TextStyle(color: Colors.pinkAccent),

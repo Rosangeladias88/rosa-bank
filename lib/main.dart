@@ -8,6 +8,7 @@ import 'comprovante.dart';
 import 'dados_saldo.dart';
 import 'dados_transferencia.dart';
 import 'tema.dart';
+import 'cadastro.dart';
 
 
 Future<void> main() async {
@@ -41,6 +42,7 @@ class RosaBankApp extends StatelessWidget {
         '/transferencia': (context) => const TransferenciaPage(),
         '/historico': (context) => const HistoricoPage(),
         '/comprovante': (context) => const ComprovantePage(),
+        '/cadastro':(context) => const CadastroPage(),
       },
     );
   },
