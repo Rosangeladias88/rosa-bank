@@ -17,10 +17,18 @@ class _PrincipalPageState extends State<PrincipalPage> {
     return Scaffold(
       backgroundColor: const Color(0xFF101827),
       appBar: AppBar(
-        title: const Text('Rosa Bank'),
-        backgroundColor: Colors.pinkAccent,
-        centerTitle: true,
-      ),
+  title: const Text('Rosa Bank'),
+  backgroundColor: Colors.pinkAccent,
+  centerTitle: true,
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.logout),
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, '/');
+      },
+    ),
+  ],
+),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24),
