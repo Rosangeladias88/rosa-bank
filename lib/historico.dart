@@ -50,13 +50,10 @@ class HistoricoPage extends StatelessWidget {
                             (index) => FlSpot(
                               index.toDouble(),
                               double.parse(
-                                historicoTransferencias[index]['valor']
-                                    .toString(),
+                                historicoTransferencias[index]['valor'].toString(),
                               ),
                             ),
                           ),
-
- 
                           isCurved: true,
                           barWidth: 4,
                           dotData: FlDotData(show: true),
@@ -65,47 +62,48 @@ class HistoricoPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          'Pix: ${historicoTransferencias.length}',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          resumoCard('Pix', '${historicoTransferencias.length}'),
+                          resumoCard(
+                            'Total',
+                            'R\$ ${historicoTransferencias.fold(
+                              0.0,
+                              (soma, item) =>
+                                  soma + double.parse(item['valor'].toString()),
+                            ).toStringAsFixed(2)}',
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          resumoCard(
+                            'Maior Pix',
+                            'R\$ ${historicoTransferencias.map(
+                              (e) => double.parse(e['valor'].toString()),
+                            ).reduce((a, b) => a > b ? a : b).toStringAsFixed(2)}',
+                          ),
+                          resumoCard(
+                            'Menor Pix',
+                            'R\$ ${historicoTransferencias.map(
+                              (e) => double.parse(e['valor'].toString()),
+                            ).reduce((a, b) => a < b ? a : b).toStringAsFixed(2)}',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
 
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          'Total: R\$ ${historicoTransferencias.fold(
-            0.0,
-            (soma, item) =>
-                soma + double.parse(item['valor'].toString()),
-          ).toStringAsFixed(2)}',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
-const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 Expanded(
                   child: ListView.builder(
@@ -139,6 +137,36 @@ const SizedBox(height: 16),
                 ),
               ],
             ),
+    );
+  }
+
+  Widget resumoCard(String titulo, String valor) {
+    return Container(
+      width: 130,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 30,
+        vertical: 20,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text(
+            titulo,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            valor,
+            style: const TextStyle(
+              color: Colors.pinkAccent,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
