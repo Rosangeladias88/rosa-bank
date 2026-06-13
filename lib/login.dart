@@ -38,7 +38,9 @@ class _LoginPageState extends State<LoginPage> {
                   size: 80,
                   color: Colors.pinkAccent,
                 ),
+
                 const SizedBox(height: 16),
+
                 const Text(
                   'Rosa Bank',
                   style: TextStyle(
@@ -47,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
                 const SizedBox(height: 32),
 
                 TextFormField(
@@ -75,48 +78,46 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 16),
 
-               TextFormField(
-  obscureText: !mostrarSenha,
-  style: const TextStyle(color: Colors.white),
-  decoration: InputDecoration(
-    labelText: 'Senha',
-    labelStyle: const TextStyle(color: Colors.white70),
-    prefixIcon: const Icon(
-      Icons.lock,
-      color: Colors.white70,
-    ),
-
-    suffixIcon: IconButton(
-      icon: Icon(
-        mostrarSenha
-            ? Icons.visibility
-            : Icons.visibility_off,
-        color: Colors.white70,
-      ),
-      onPressed: () {
-        setState(() {
-          mostrarSenha = !mostrarSenha;
-        });
-      },
-    ),
-
-    enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white38),
-    ),
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.pinkAccent),
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Informe sua senha';
-    }
-    return null;
-  },
-  onChanged: (value) {
-    senha = value;
-  },
-),
+                TextFormField(
+                  obscureText: !mostrarSenha,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: 'Senha',
+                    labelStyle: const TextStyle(color: Colors.white70),
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                      color: Colors.white70,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        mostrarSenha
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.white70,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          mostrarSenha = !mostrarSenha;
+                        });
+                      },
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white38),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pinkAccent),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Informe sua senha';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    senha = value;
+                  },
+                ),
 
                 const SizedBox(height: 24),
 
@@ -127,6 +128,44 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: entrar,
                     child: const Text('Entrar'),
                   ),
+                ),
+
+                const SizedBox(height: 16),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Funcionalidade de cadastro em desenvolvimento.',
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Cadastre-se',
+                        style: TextStyle(color: Colors.pinkAccent),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Recuperação de senha em desenvolvimento.',
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Esqueceu a senha?',
+                        style: TextStyle(color: Colors.pinkAccent),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
