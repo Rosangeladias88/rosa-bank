@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dados_saldo.dart';
 import 'dados_transferencia.dart';
 import 'tema.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PrincipalPage extends StatefulWidget {
   const PrincipalPage({super.key});
@@ -12,6 +13,21 @@ class PrincipalPage extends StatefulWidget {
 
 class _PrincipalPageState extends State<PrincipalPage> {
   bool mostrarSaldo = false;
+  String nomeUsuario = 'Usuário';
+
+  @override
+  void initState() {
+    super.initState();
+    carregarNomeUsuario();
+  }
+
+  Future<void> carregarNomeUsuario() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      nomeUsuario = prefs.getString('nome') ?? 'Usuário';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +82,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFFE91E63),
-                      Color(0xFF9C27B0),
-                    ],
+                    colors: [Color(0xFFE91E63), Color(0xFF9C27B0)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -96,11 +109,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
                             letterSpacing: 1.2,
                           ),
                         ),
-                        Icon(
-                          Icons.credit_card,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+                        Icon(Icons.credit_card, color: Colors.white, size: 30),
                       ],
                     ),
 
@@ -108,10 +117,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
                     const Text(
                       'Saldo disponível',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
 
                     const SizedBox(height: 8),
@@ -146,13 +152,12 @@ class _PrincipalPageState extends State<PrincipalPage> {
                     ),
 
                     const SizedBox(height: 22),
-
-                    const Text(
-                      'Rosângela Dias',
-                      style: TextStyle(
+                    Text(
+                      nomeUsuario,
+                      style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
@@ -160,10 +165,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
 
                     const Text(
                       'Agência 0001  •  Conta 12345-7',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 13,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 13),
                     ),
 
                     const SizedBox(height: 16),
@@ -181,10 +183,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
                         ),
                         Text(
                           'Validade 12/30',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: Colors.white70, fontSize: 13),
                         ),
                       ],
                     ),
@@ -245,10 +244,9 @@ class _PrincipalPageState extends State<PrincipalPage> {
                         ),
                       )
                     : Column(
-                        children: historicoTransferencias
-                            .reversed
-                            .take(3)
-                            .map((transferencia) {
+                        children: historicoTransferencias.reversed.take(3).map((
+                          transferencia,
+                        ) {
                           return ListTile(
                             leading: const Icon(
                               Icons.arrow_upward,
@@ -257,9 +255,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
                             title: Text(
                               'Pix para ${transferencia['nome']}',
                               style: TextStyle(
-                                color: modoEscuro
-                                    ? Colors.white
-                                    : Colors.black,
+                                color: modoEscuro ? Colors.white : Colors.black,
                               ),
                             ),
                             subtitle: Text(
@@ -295,8 +291,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
         children: [
           CircleAvatar(
             radius: 35,
-            backgroundColor:
-                modoEscuro ? Colors.white24 : Colors.pink.shade100,
+            backgroundColor: modoEscuro ? Colors.white24 : Colors.pink.shade100,
             child: Icon(
               icone,
               color: modoEscuro ? Colors.white : Colors.pinkAccent,
@@ -306,9 +301,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
           const SizedBox(height: 8),
           Text(
             titulo,
-            style: TextStyle(
-              color: modoEscuro ? Colors.white : Colors.black,
-            ),
+            style: TextStyle(color: modoEscuro ? Colors.white : Colors.black),
           ),
         ],
       ),
