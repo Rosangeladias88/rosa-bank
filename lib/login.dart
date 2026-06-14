@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,11 +17,24 @@ class _LoginPageState extends State<LoginPage> {
 
   bool mostrarSenha = false;
 
-  void entrar() {
-    if (_formLogin.currentState!.validate()) {
+  Future<void> entrar() async {
+  if (_formLogin.currentState!.validate()) {
+    final prefs = await SharedPreferences.getInstance();
+
+    final emailSalvo = prefs.getString('email');
+    final senhaSalva = prefs.getString('senha');
+
+    if (email == emailSalvo && senha == senhaSalva) {
       Navigator.pushReplacementNamed(context, '/principal');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('E-mail ou senha incorretos.'),
+        ),
+      );
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {

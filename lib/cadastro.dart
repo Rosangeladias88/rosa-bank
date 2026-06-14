@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
@@ -13,10 +14,22 @@ class _CadastroPageState extends State<CadastroPage> {
   bool mostrarSenha = false;
   bool mostrarConfirmarSenha = false;
 
+  String nome = '';
+  String cpf = '';
+  String email = '';
+  String telefone = '';
   String senha = '';
 
-  void criarConta() {
+  Future<void> criarConta() async {
     if (_formCadastro.currentState!.validate()) {
+      final prefs = await SharedPreferences.getInstance();
+
+      await prefs.setString('nome', nome);
+      await prefs.setString('cpf', cpf);
+      await prefs.setString('email', email);
+      await prefs.setString('telefone', telefone);
+      await prefs.setString('senha', senha);
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Conta criada com sucesso!'),
@@ -48,9 +61,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   size: 70,
                   color: Colors.pinkAccent,
                 ),
-
                 const SizedBox(height: 12),
-
                 const Text(
                   'Criar conta Rosa Bank',
                   style: TextStyle(
@@ -59,22 +70,37 @@ class _CadastroPageState extends State<CadastroPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 24),
 
-                campoTexto('Nome completo', Icons.person),
+                campoTexto(
+                  'Nome completo',
+                  Icons.person,
+                  (value) => nome = value,
+                ),
 
                 const SizedBox(height: 16),
 
-                campoTexto('CPF', Icons.badge),
+                campoTexto(
+                  'CPF',
+                  Icons.badge,
+                  (value) => cpf = value,
+                ),
 
                 const SizedBox(height: 16),
 
-                campoTexto('E-mail', Icons.email),
+                campoTexto(
+                  'E-mail',
+                  Icons.email,
+                  (value) => email = value,
+                ),
 
                 const SizedBox(height: 16),
 
-                campoTexto('Telefone', Icons.phone),
+                campoTexto(
+                  'Telefone',
+                  Icons.phone,
+                  (value) => telefone = value,
+                ),
 
                 const SizedBox(height: 16),
 
@@ -177,7 +203,11 @@ class _CadastroPageState extends State<CadastroPage> {
     );
   }
 
-  Widget campoTexto(String label, IconData icone) {
+  Widget campoTexto(
+    String label,
+    IconData icone,
+    Function(String) onChanged,
+  ) {
     return TextFormField(
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -197,6 +227,7 @@ class _CadastroPageState extends State<CadastroPage> {
         }
         return null;
       },
+      onChanged: onChanged,
     );
   }
 }
